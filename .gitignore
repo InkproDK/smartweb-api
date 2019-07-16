@@ -1,0 +1,7 @@
+/vendor/
+.vscode
+/docs/
+.env
+test.php
+phpdoc.xml
+composer.lock

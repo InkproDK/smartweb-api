@@ -1,0 +1,17 @@
+{
+    "name": "inkpro/smartweb-api",
+    "description": "API wrapper to smartwebs soap platform",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Esben",
+            "email": "esben@inkpro.dk"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "ext-soap": "*",
+        "php": ">=5.3.0"
+    }
+}
