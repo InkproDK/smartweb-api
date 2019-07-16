@@ -20,7 +20,7 @@ namespace inkpro\smartwebapi;
  */
 class Client{
 
-    private const WSDL_URL = "https://api.hostedshop.dk/service.wsdl";
+    private const WSDL_URL = "https://api.smartweb.dk/service.wsdl";
 
     /** @var \SoapClient The SOAP client. */
     private $client = null;
