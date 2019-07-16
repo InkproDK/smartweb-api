@@ -5,8 +5,9 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Esben",
-            "email": "esben@inkpro.dk"
+            "name": "Esben Tind",
+            "email": "esben@inkpro.dk",
+            "role": "Developer"
         }
     ],
     "minimum-stability": "stable",
