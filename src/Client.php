@@ -13,7 +13,7 @@ namespace inkpro\smartwebapi;
  * Documentation for the API can be found here: https://api.smart-web.dk/doc/
  * Smartweb uses a soap client to pool from their servers.
  * 
- * To initiate, use `$client = new \inkpro\smartwebapi\Client();`.
+ * To initiate, use `$client = new \inkpro\smartwebapi\Client(["Username"=>"myuser", "Password"=>"mypassword"]);`.
  * 
  * @author Esben Tind <esben@inkpro.dk>
  * @see https://api.smart-web.dk/doc/
