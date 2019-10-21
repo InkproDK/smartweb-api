@@ -1,7 +1,7 @@
 <?php
 namespace inkpro\smartwebapi;
 
-class OrderCustomerCreate{
+class Customer{
 
 	public $Address;
 	public $Address2;

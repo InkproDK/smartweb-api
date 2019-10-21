@@ -52,6 +52,11 @@ class Order{
                     }
                     break;
 
+                case "Customer":
+                    $this->Customer = new Customer($row->item);
+                    break;
+
+                
                 default:
                     $this->$key = $row;
                     break;

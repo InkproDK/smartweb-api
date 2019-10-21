@@ -1,7 +1,7 @@
 <?php
 namespace inkpro\smartwebapi;
 
-class OrderTransactionCreate{
+class Transaction{
 
 	
 	public $Actioncode;
