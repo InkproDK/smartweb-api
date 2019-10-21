@@ -8,6 +8,11 @@
             "name": "Esben Tind",
             "email": "esben@inkpro.dk",
             "role": "Developer"
+        },
+        {
+            "name": "Alnie Jacobe",
+            "email": "alnie@inkpro.dk",
+            "role": "Developer"
         }
     ],
     "minimum-stability": "stable",
