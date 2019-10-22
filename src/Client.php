@@ -527,10 +527,5 @@ class Client{
         return $this->callApi("Currency_GetAll");
     }
 
-    function getCurrencyByISO(string $iso)
-    {
-        return $this->callApi("Currency_GetByIso", ["Iso"=>$iso]);
-    }
-
 }
 ?>
