@@ -262,6 +262,15 @@ class Client{
         return $this->callApi("User_Create",array("UserData"=>$user));
     }
 
+    /**
+     * Retrieves currency by Iso
+     * 
+     * @return object Currency.
+     */
+    function getCurrencyByIso($iso){
+        return $this->callApi("Currency_GetByIso", ["Iso" => $iso]);
+    }
+
     function createOrder($order){
         return $this->callApi("Order_Create",["OrderData"=>$order]);
     }
