@@ -5,3 +5,4 @@
 test.php
 phpdoc.xml
 composer.lock
+.phpunit.result.cache

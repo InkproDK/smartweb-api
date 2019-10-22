@@ -513,5 +513,15 @@ class Client{
         return $this->callApi("Order_GetLineAddresses", ["OrderLineId"=>$orderline_id]);
     }
 
+    function getAllCurrencies()
+    {
+        return $this->callApi("Currency_GetAll");
+    }
+
+    function getCurrencyByISO(string $iso)
+    {
+        return $this->callApi("Currency_GetByIso", ["Iso"=>$iso]);
+    }
+
 }
 ?>
