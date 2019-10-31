@@ -271,6 +271,17 @@ class Client{
         return $this->callApi("Currency_GetByIso", ["Iso" => $iso]);
     }
 
+    /**
+     * Retrieves a customer
+     * 
+     * @param int $Id Id of the customer to retrieve
+     * @return OrderCustomer The orderCustomer object.
+     */
+    function getCustomer($CustomerId){
+        $customer = $this->callApi("Order_GetCustomer",array("CustomerId"=>$CustomerId));
+        return $customer;
+    }
+
     function createOrder($order){
         return $this->callApi("Order_Create",["OrderData"=>$order]);
     }
