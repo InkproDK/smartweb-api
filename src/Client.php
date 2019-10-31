@@ -398,7 +398,7 @@ class Client{
      * @param int $orderId Id of the order to fetch lines from.
      */
     function getOrderLines ($orderId){
-        return $this->callApi("Order_GetLines",array("OrderId"=>$order_id));
+        return $this->callApi("Order_GetLines",array("OrderId"=>$orderId));
     }
 
     /**
