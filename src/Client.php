@@ -129,8 +129,8 @@ class Client{
      * @return [] Array of Product Objects.
      */
     function getProductsByUpdatedDate($startDate, $endDate = null) {
-    	
-    	return $this->callApi("Product_GetByUpdatedDate",["Start"=>$startDate, "End" => $endDate]);
+        
+        return $this->callApi("Product_GetByUpdatedDate",["Start"=>$startDate, "End" => $endDate]);
     }
 
     /**
@@ -198,9 +198,9 @@ class Client{
      * @return object[] Array with all the users.
      */
     function getNewsletterUsers(){
-    	$response = $this->callApi("User_GetAllNewsletter", array('isNotSyncedOnly' => true));
+        $response = $this->callApi("User_GetAllNewsletter", array('isNotSyncedOnly' => true));
         foreach ($response as $user) {
-        	$this->allNewsletterUsers[$user->Id] = $user;
+            $this->allNewsletterUsers[$user->Id] = $user;
         }
         return $this->allNewsletterUsers;
     }
@@ -214,7 +214,7 @@ class Client{
         $user->Newsletter = false;
         return $this->callApi("User_Update", array("UserData" => $user));
     }  
-    	
+        
 
     /**
      * Gets a user by id.
@@ -271,17 +271,6 @@ class Client{
         return $this->callApi("Currency_GetByIso", ["Iso" => $iso]);
     }
 
-    /**
-     * Retrieves a customer
-     * 
-     * @param int $Id Id of the customer to retrieve
-     * @return OrderCustomer The orderCustomer object.
-     */
-    function getCustomer($CustomerId){
-        $customer = $this->callApi("Order_GetCustomer",array("CustomerId"=>$CustomerId));
-        return $customer;
-    }
-
     function createOrder($order){
         return $this->callApi("Order_Create",["OrderData"=>$order]);
     }
@@ -296,6 +285,17 @@ class Client{
         $order = $this->callApi("Order_GetById",array("OrderId"=>$orderId));
         $return = new Order($order);
         return $return;
+    }
+
+    /**
+     * Retrieves a customer
+     * 
+     * @param int $Id Id of the customer to retrieve
+     * @return OrderCustomer The orderCustomer object.
+     */
+    function getCustomer($CustomerId){
+        $customer = $this->callApi("Order_GetCustomer",array("CustomerId"=>$CustomerId));
+        return $customer;
     }
 
     /**
