@@ -200,13 +200,30 @@ class Client{
     function getNewsletterUsers(){
         $response = $this->callApi("User_GetAllNewsletter", array('isNotSyncedOnly' => true));
         foreach ($response as $user) {
-            $this->allNewsletterUsers[$user->Id] = $user;
+            $this->allNewsletterUsers[$user->Id] = new User($user);
         }
         return $this->allNewsletterUsers;
     }
 
     /**
-     * UnSubscribe user
+     * Returns all Newsletter Users created or updated in a given timespan.
+     * Currently this apparently doesn't respect the start and end date.
+     * 
+     * @param \DateTime $start The start date of the query. Note only the date portion is used.
+     * @param \DateTime|null $end The start date of the query. Note only the date portion is used. Defaults to current date.
+     * @return object[] Array with all the users.
+     */
+    function getNewsletterUsersByDate(\DateTime $start, ?\DateTime $end = null){
+        if(!$end) $end = new \DateTime;
+        $response = $this->callApi("User_GetAllNewsletterByDate", ["Start"=>$start->format("Y-m-d"), "End"=>$end->format("Y-m-d")]);
+        foreach ($response as $user) {
+            $this->allNewsletterUsers[$user->Id] = new User($user);
+        }
+        return $this->allNewsletterUsers;
+    }
+
+    /**
+     * UnSubscribe user from newsletter.
      * 
      * @param int $id Id of the user you wish to unsubscribe.
      */

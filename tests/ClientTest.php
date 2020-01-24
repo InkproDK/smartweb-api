@@ -26,4 +26,18 @@ class ClientTest extends SmartwebTestCase
         $deliveries = self::$client->getAllDeliveries();
         $this->assertIsArray($deliveries);
     }
+
+    public function testCanGetNewsletterUsers()
+    {
+        $users = self::$client->getNewsletterUsers();
+        $this->assertIsArray($users);
+        $this->assertInstanceOf(\inkpro\smartwebapi\User::class, array_values($users)[0]);
+    }
+
+    public function testCanGetNewsletterUsersByDate()
+    {
+        $users = self::$client->getNewsletterUsersByDate(new \DateTime("yesterday"));
+        $this->assertIsArray($users);
+        $this->assertInstanceOf(\inkpro\smartwebapi\User::class, array_values($users)[0]);
+    }
 }

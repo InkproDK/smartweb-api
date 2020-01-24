@@ -14,8 +14,8 @@ class SmartwebTestCase extends TestCase
         $dotenv = Dotenv::create(__DIR__);
         $dotenv->load();
         $credentials = [
-            "Username"=>$_ENV["WANNAFIND_USER"],
-            "Password"=>$_ENV["WANNAFIND_PASS"]
+            "Username"=>$_ENV["SMARTWEB_API_USER"],
+            "Password"=>$_ENV["SMARTWEB_API_PASSWORD"]
         ];
         self::$client = new Client($credentials);
     }
