@@ -593,20 +593,31 @@ class Client{
         return $this->callApi('Currency_GetAll');
     }
 
-    public function getProductVariants($product_id){
+    /**
+     * Retrieve all product variants
+     *
+     * @param int $product_id
+     * @return mixed
+     */
+    public function getProductVariants(int $product_id){
         return $this->callApi('Product_GetVariants', ['ProductId' => $product_id]);
     }
 
+    /**
+     * Retrieve all order status codes
+     *
+     * @return mixed
+     */
     public function getOrderStatusCodes()
     {
         return $this->callApi('OrderStatusCode_GetAll');
     }
 
     /**
-     * Retrieves a product variant.
+     * Retrieves a product variant by it's ItemNumber
      *
-        * @param int $item_number Id of the product variant to retrieve.
-     * @return object|false The product variant, if found. False if there's no product variant with that id.
+        * @param int $item_number ItemNumber of the product variant to retrieve.
+     * @return object|false The product variant, if found. False if there's no product variant with that ItemNumber.
      */
     public function getProductVariantByItemNumber($item_number){
         $return = $this->callApi('Product_GetVariantsByItemNumber',array('ItemNumber' =>$item_number));
@@ -619,10 +630,10 @@ class Client{
 
 
     /**
-     * Retrieves a product.
+     * Retrieves a product by it's ItemNumber
      *
-     * @param int $item_number Id of the product to retrieve.
-     * @return object|false The product, if found. False if there's no product with that id.
+     * @param int $item_number ItemNumber of the product to retrieve.
+     * @return object|false The product, if found. False if there's no product with that ItemNumber.
      */
     public function getProductByItemNumber($item_number){
         $return = $this->callApi('Product_GetByItemNumber',array('ItemNumber' =>$item_number));
@@ -633,7 +644,7 @@ class Client{
     }
 
     /**
-     * Updates a product.
+     * Updates a product variant
      *
      * @param object $product_variant Product variant object, should include either Id or ItemNumber prop.
      * @return mixed
