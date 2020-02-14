@@ -627,8 +627,6 @@ class Client{
         return false;
     }
 
-
-
     /**
      * Retrieves a product by it's ItemNumber
      *
