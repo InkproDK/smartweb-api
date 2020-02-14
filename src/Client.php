@@ -593,5 +593,54 @@ class Client{
         return $this->callApi('Currency_GetAll');
     }
 
+    public function getProductVariants($product_id){
+        return $this->callApi('Product_GetVariants', ['ProductId' => $product_id]);
+    }
+
+    public function getOrderStatusCodes()
+    {
+        return $this->callApi('OrderStatusCode_GetAll');
+    }
+
+    /**
+     * Retrieves a product variant.
+     *
+        * @param int $item_number Id of the product variant to retrieve.
+     * @return object|false The product variant, if found. False if there's no product variant with that id.
+     */
+    public function getProductVariantByItemNumber($item_number){
+        $return = $this->callApi('Product_GetVariantsByItemNumber',array('ItemNumber' =>$item_number));
+        if(isset($return->Id)){
+            return $return;
+        }
+        return false;
+    }
+
+
+
+    /**
+     * Retrieves a product.
+     *
+     * @param int $item_number Id of the product to retrieve.
+     * @return object|false The product, if found. False if there's no product with that id.
+     */
+    public function getProductByItemNumber($item_number){
+        $return = $this->callApi('Product_GetByItemNumber',array('ItemNumber' =>$item_number));
+        if(isset($return->Id)){
+            return new Product($return);
+        }
+        return false;
+    }
+
+    /**
+     * Updates a product.
+     *
+     * @param object $product_variant Product variant object, should include either Id or ItemNumber prop.
+     * @return mixed
+     */
+    public function updateProductVariant($product_variant){
+        return $this->callApi('Product_UpdateVariant',['VariantData' =>$product_variant]);
+    }
+
 }
 
