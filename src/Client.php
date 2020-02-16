@@ -131,7 +131,7 @@ class Client{
      * @param null $endDate
      * @return mixed [] Array of Product Objects.
      */
-    public function getProductsByUpdatedDate($startDate, $endDate = null): array
+    public function getProductsByUpdatedDate($startDate, $endDate = null)
     {
         
         return $this->callApi('Product_GetByUpdatedDate',['Start' =>$startDate, 'End' => $endDate]);
