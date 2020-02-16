@@ -345,7 +345,7 @@ class Client{
      * @param DateTime $start The first date to get orders from.
      * @param DateTime $end The last date to get orders from.
      * @param array $status The status codes of the orders you want to get.
-     * @return object[] Array with the orders.
+     * @return array Array with the orders.
      */
     public function getOrders(DateTime $start, DateTime $end, $status=['1', '2', '3', '4', '6', '7', '8']): array
     {
