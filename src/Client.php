@@ -120,7 +120,7 @@ class Client{
      * @param array $ids
      * @return array|null of found Products.
      */
-    public function getProductsByIds(array $ids) : ?array {
+    public function getProductsByIds(array $ids) {
         return $this->callApi('Product_GetByIds', ['ProductIds' => $ids]);
     }
 
