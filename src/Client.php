@@ -86,6 +86,20 @@ class Client{
     }
 
     /**
+     * Retrieves a pageText.
+     * 
+     * @param int $id Id of the pageText to retrieve.
+     * @return object|false The PageText, if found. False if there's no product with that id.
+     */
+    public function getPageText($id){
+        $return = $this->callApi('PageText_GetById',array('PageTextId' =>$id));
+        if(isset($return->Id)){
+            return new PageText($return);
+        }
+        return false;
+    }
+
+    /**
      * Retrieves all products.
      * 
      * @return Product[] All the products.
