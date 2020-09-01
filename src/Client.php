@@ -584,6 +584,10 @@ class Client{
         return $this->callApi('Product_GetCustomDataByType', ['CustomDataTypeId' =>$type_id]);
     }
 
+    public function getCustomDataType(int $type_id){
+        return $this->callApi('Product_GetCustomDataType', ['CustomDataTypeId' =>$type_id]);
+    }
+
     public function getAllAdditionalTypes(){
         return $this->callApi('Product_GetAdditionalTypesAll');
     }
