@@ -34,14 +34,16 @@ class Client{
     protected $allUsers;
 
 
-    /**
-     * Envokes the soap client with smartweb login details.
-     *
-     * @param array|null $credentials Optional credentials to service. If null, we'll use environment vars. If string, we count on it being a shopname.
-     * @throws SoapFault
-     */
-    public function __construct($credentials){
-        $client = new SoapClient(self::WSDL_URL);
+	/**
+	 * Invokes the soap client with SmartWeb login details.
+	 *
+	 * @param array|null  $credentials Optional credentials to service. If null, we'll use environment vars. If string, we count on it being a shopname.
+	 * @param string|null $wsdl_url
+	 *
+	 * @throws SoapFault
+	 */
+    public function __construct( ?array $credentials, ?string $wsdl_url){
+        $client = new SoapClient($wsdl_url ?? self::WSDL_URL);
         $client->Solution_Connect($credentials);
         $this->client = $client;
     }
