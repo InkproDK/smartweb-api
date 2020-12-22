@@ -197,6 +197,32 @@ class Client{
         $category = $this->callApi('Category_GetById', ['CategoryId' =>$category_id]);
         return new Category($category);
     }
+    /**
+     * retrives products by categories
+     * 
+     * 
+     * 
+     */
+    public function getProductsByCategory(int $category_id): array
+    {
+        $products = $this->callApi('Product_getbycategory', ['CategoryId' =>$category_id]);
+        $result = [];
+        foreach ($products as $product) {
+            $result[] = new Product($product);
+        }
+        return $result;
+    }
+
+    public function getProductsByCategoryAndSecoundary(int $category_id): array
+    {
+        $products = $this->callApi('Product_GetByCategoryAndSecondary', ['CategoryId' =>$category_id]);
+        $result = [];
+        foreach ($products as $product) {
+            $result[] = new Product($product);
+        }
+        return $result;
+    }
+
 
     /**
      * Gets all users
