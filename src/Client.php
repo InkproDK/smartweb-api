@@ -42,7 +42,7 @@ class Client{
 	 *
 	 * @throws SoapFault
 	 */
-    public function __construct( ?array $credentials, ?string $wsdl_url){
+    public function __construct( ?array $credentials, ?string $wsdl_url = null){
         $client = new SoapClient($wsdl_url ?? self::WSDL_URL);
         $client->Solution_Connect($credentials);
         $this->client = $client;
