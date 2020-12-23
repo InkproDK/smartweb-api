@@ -199,11 +199,12 @@ class Client{
         $category = $this->callApi('Category_GetById', ['CategoryId' =>$category_id]);
         return new Category($category);
     }
+
     /**
-     * retrives products by categories
+     * Retrieves products that has a certain category as main category
      * 
-     * 
-     * 
+     * @param int $category_id The id of the Category of the wanted Products
+     * @return Product[] Returns the products with this category as their main category. The output format can be set with setFields.
      */
     public function getProductsByCategory(int $category_id): array
     {
@@ -215,6 +216,12 @@ class Client{
         return $result;
     }
 
+    /**
+     * Retrieves products that has a certain category as main or second category
+     * 
+     * @param int $category_id The id of the Category of the wanted Products
+     * @return Product[] Returns the products with this category as their main or secondary category. The output format can be set with setFields.
+     */
     public function getProductsByCategoryAndSecoundary(int $category_id): array
     {
         $products = $this->callApi('Product_GetByCategoryAndSecondary', ['CategoryId' =>$category_id]);
