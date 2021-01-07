@@ -1,0 +1,18 @@
+<?php
+namespace inkpro\smartwebapi;
+
+class DiscountGroupProduct{
+    public $Id;
+    public $Title;
+
+    function __construct($data){
+        $data = (array)$data;
+        foreach($data as $key=>$row){
+            switch($key){
+                default:
+                    $this->$key = $row;
+                    break;
+            }
+        }
+    }
+}
