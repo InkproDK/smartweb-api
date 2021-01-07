@@ -587,7 +587,7 @@ class Client{
     /**
      * Deletes a new NewsletterCustomField
      *
-     * @param int The Id of the NewsletterCustomField to delete
+     * @param int $id The Id of the NewsletterCustomField to delete
      */
     public function deleteNewsletterCustomField($id)
     {
@@ -615,7 +615,7 @@ class Client{
      * Returns the indicated NewsletterCustomField
      * 
      * @param int $id The id of the NewsletterCustomField
-     * @param int $id The id of the mail service
+     * @param int $serviceId The id of the mail service
      * @return object NewsletterCustomField object
      */
     public function getNewsletterCustomField($id, $serviceId)
@@ -628,7 +628,7 @@ class Client{
      * Updates NewsletterCustomField
      * 
      * @param NewsletterCustomFieldUpdate
-     * @return int $id The id of the NewsletterCustomField
+     * @return int $customField The id of the NewsletterCustomField
      */
     public function updateNewsletterCustomField($customField)
     {
@@ -1076,11 +1076,16 @@ class Client{
     /**
      * Retrieve all order status codes
      *
-     * @return mixed
+     * @return [] of OrderStatusCode Objects
      */
     public function getOrderStatusCodes()
     {
-        return $this->callApi('OrderStatusCode_GetAll');
+        $statusCodes = $this->callApi('OrderStatusCode_GetAll');
+        $return = [];
+        foreach($statusCodes as $statusCode){
+            $return[] = new OrderStatusCode($statusCode);
+        }
+        return $return;
     }
 
     /**
