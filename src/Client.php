@@ -77,8 +77,8 @@ class Client{
     /**
      * Creates or updates a Category. Assumes that only unique Category titles exist for a given level in the shop. If the Title supplied is not found on the level a new Category is created
      * 
-     * $param object $category The input in CategoryCreateUpate object format.
-     * $return int Id of the created or udpated Category
+     * @param object $category The input in CategoryCreateUpate object format.
+     * @return int Id of the created or udpated Category
      */
     public function createOrUpdateCategory($category)
     {
@@ -598,7 +598,7 @@ class Client{
      * @param int $serviceId The id of the mail service
      * @return array An array of NewsletterCustomField Objects
      */
-    public function getNewsletterCustomFieldByGroup($userGroupId, $serviceId)
+    public function getNewsletterCustomFieldByGroup($userGroupId, $serviceId): array
     {
         $customFields = $this->callApi("Newsletter_GetCustomFieldByGroup", ["UserGroupId" => $userGroupId, "ServiceId" => $serviceId]);
         $return = [];
@@ -1075,7 +1075,7 @@ class Client{
      *
      * @return [] of OrderStatusCode Objects
      */
-    public function getOrderStatusCodes()
+    public function getOrderStatusCodes(): array
     {
         $statusCodes = $this->callApi('OrderStatusCode_GetAll');
         $return = [];
@@ -1676,7 +1676,8 @@ class Client{
      * @param int $id The id of the Product of the wanted ProductAdditionalTypes
      * @return [] ProductAdditionalType Objects
      */
-    public function getAllAdditionalTypes(){
+    public function getAllAdditionalTypes(): array
+    {
         $types = [];
         $response = $this->callApi('Product_GetAdditionalTypesAll');
         foreach ($response as $type) {
@@ -1733,7 +1734,7 @@ class Client{
      * @param int $brandId The id of the Brand of the wanted Products
      * @return [] of Product Object
      */
-    public function getAllProductsByBrand($brandId)
+    public function getAllProductsByBrand($brandId): array
     {
         $return = [];
         $products = $this->callApi('Product_GetByBrand', ["BrandId" => $brandId]);
@@ -1823,7 +1824,6 @@ class Client{
      */
     public function getProductsByUpdatedDate($startDate, $endDate = null)
     {
-        
         return $this->callApi('Product_GetByUpdatedDate',['Start' =>$startDate, 'End' => $endDate]);
     }
 
@@ -1833,7 +1833,8 @@ class Client{
      * @param int $productId The id of the Product of the wanted ProductCostumData's
      * @return [] of ProductCustomData Object
      */
-    public function getAllCustomDataByProduct($productId){
+    public function getAllCustomDataByProduct($productId): array
+    {
         $customData = $this->callApi('Product_GetCustomData', ["ProductId" => $productId]);
         $return = [];
         foreach($customData as $custom){
@@ -1847,7 +1848,8 @@ class Client{
      * 
      * @return [] of ProductCustomData Object
      */
-    public function getAllCustomData(){
+    public function getAllCustomData(): array
+    {
         $customDatas = $this->callApi('Product_GetCustomDataAll');
         $return = [];
         foreach($customDatas as $custom){
@@ -1860,7 +1862,7 @@ class Client{
      * Returns the ProductCustomData of the indicated Product
      * 
      * @param int $id The id of the Product of the wanted ProductCostumData's
-     * @return [] of ProductCustomData Object
+     * @return ProductCustomData Object
      */
     public function getCustomData($id){
         $custom = $this->callApi('Product_GetCustomDataById', ["CustomDataId" => $id]);
@@ -1892,7 +1894,8 @@ class Client{
      * 
      * @return [] of ProductCustomDataType Objects
      */
-    public function getAllProductCustomDataType(){
+    public function getAllProductCustomDataType(): array
+    {
         $return = [];
         $customDataTypes = $this->callApi('Product_GetCustomDataTypeAll');
         foreach($customDataTypes as $dataType){
@@ -1917,7 +1920,8 @@ class Client{
      * 
      * @return [] of ProductDeliveryCountry
      */ 
-    public function getAllProductDeliveryCountry(){
+    public function getAllProductDeliveryCountry(): array
+    {
         $return = [];
         $deliveryCountries = $this->callApi('Product_GetDeliveryCountryAll');
         foreach($deliveryCountries as $deliveryCountry){
@@ -1942,7 +1946,7 @@ class Client{
      * Returns ProductDeliveryCountry by Iso
      * 
      * @param int $deliveryCountryId The iso of the wanted ProductDeliveryCountry
-     * @param string $countryCode
+     * @param string $deliveryCountryIso
      * @return ProductDeliveryCountry
      */ 
     public function getProductDeliveryCountryByIso($deliveryCountryId, $deliveryCountryIso){
@@ -1951,7 +1955,7 @@ class Client{
     }
 
     /**
-     * Returns ProductDeliveryCountry by Iso
+     * Returns ProductDeliveryCountry by Time
      * 
      * @param int $deliveryTimeId The id of the wanted ProductDeliveryTime
      * @return ProductDeliveryTime
@@ -1966,8 +1970,14 @@ class Client{
      * 
      * @return [] of ProductDeliveryTime
      */ 
-    public function getProductDeliveryTimes(){
-        return $this->callApi('Product_GetDeliveryTimeAll');
+    public function getProductDeliveryTimes(): array
+    {
+        $deliveryTimes = $this->callApi('Product_GetDeliveryTimeAll');
+        $return = [];
+        foreach($deliveryTimes as $deliveryTime){
+            $return[] = new ProductDeliveryTime($deliveryTime);
+        }
+        return $return;
     }
 
     /**
@@ -1977,7 +1987,8 @@ class Client{
      * @return ProductDiscount
      */ 
     public function getProductDiscount($discountId){
-        return $this->callApi('Product_GetDiscount', ["DiscountId" => $discountId]);
+        $discount = $this->callApi('Product_GetDiscount', ["DiscountId" => $discountId]);
+        return new ProductDiscount($discount);
     }
 
     /**
@@ -1987,7 +1998,8 @@ class Client{
      * @return ProductDiscountAccumulative
      */ 
     public function getProductDiscountAccumulative($discountId){
-        return $this->callApi("Product_GetDiscountAccumulative", ["DiscountId" => $discountId]);
+        $discountAccumulative = $this->callApi("Product_GetDiscountAccumulative", ["DiscountId" => $discountId]);
+        return new ProductDiscountAccumulative($discountAccumulative);
     }
 
     /**
@@ -2006,7 +2018,7 @@ class Client{
      * @param int ProductId the id of the Product
      * @return [] of ProductDiscount
      */ 
-    public function getProductDiscounts($productId)
+    public function getProductDiscounts($productId): array
     {
         $discounts = $this->callApi("Product_GetDiscounts", ["ProductId" => $productId]);
         $return = [];
@@ -2022,7 +2034,8 @@ class Client{
      * @param int ProductId the id of the Product
      * @return [] of ProductDiscountAccumulative
      */ 
-    public function getProductDiscountsAccumulative($productId){
+    public function getProductDiscountsAccumulative($productId): array
+    {
         $discounts = $this->callApi("Product_GetDiscountsAccumulative", ["ProductId" => $productId]);
         $return = [];
         foreach($discounts as $discount){
@@ -2036,7 +2049,8 @@ class Client{
      * 
      * @return [] of ProductDiscountAccumulative
      */ 
-    public function getAllProductDiscountsAccumulative(){
+    public function getAllProductDiscountsAccumulative(): array
+    {
         $discounts = $this->callApi("Product_GetDiscountsAccumulativeAll");
         $return = [];
         foreach($discounts as $discount){
@@ -2051,7 +2065,8 @@ class Client{
      * @param int DiscountGroupProductId the id of the DiscountGroupProduct
      * @return [] of ProductDiscountAccumulative
      */ 
-    public function getAllProductDiscountsAccumulativeByProductGroup($discountGroupProductId){
+    public function getAllProductDiscountsAccumulativeByProductGroup($discountGroupProductId): array
+    {
         $discounts = $this->callApi("Product_GetDiscountsAccumulativeByProductGroup", ["DiscountGroupProductId" => $discountGroupProductId]);
         $return = [];
         foreach($discounts as $discount){
@@ -2066,7 +2081,8 @@ class Client{
      * @param int UserId the id of the User
      * @return [] of ProductDiscountAccumulative
      */ 
-    public function getAllProductDiscountsAccumulativeByUser($userId){
+    public function getAllProductDiscountsAccumulativeByUser($userId): array
+    {
         $discounts = $this->callApi("Product_GetDiscountsAccumulativeByUser", ["UserId" => $userId]);
         $return = [];
         foreach($discounts as $discount){
@@ -2081,7 +2097,8 @@ class Client{
      * @param int UserDiscountGroupId the id of the User
      * @return [] of ProductDiscountAccumulative
      */ 
-    public function getAllProductDiscountsAccumulativeByUserGroup($userDiscountGroupId){
+    public function getAllProductDiscountsAccumulativeByUserGroup($userDiscountGroupId): array
+    {
         $discounts = $this->callApi("Product_GetDiscountsAccumulativeByUserGroup", ["UserDiscountGroupId" => $userDiscountGroupId]);
         $return = [];
         foreach($discounts as $discount){
@@ -2096,7 +2113,8 @@ class Client{
      * @param int The id of the wanted ExtraBuyCategory
      * @return ProductExtraBuyCategory
      */ 
-    public function getProductExtraBuyCategory($extraBuyCategoryId){
+    public function getProductExtraBuyCategory($extraBuyCategoryId): array
+    {
         $category = $this->callApi("Product_GetExtraBuyCategory", ["ExtraBuyCategoryId" => $extraBuyCategoryId]);
         return new ProductExtraBuyCategory($category);
     }
@@ -2107,7 +2125,8 @@ class Client{
      * @param int The id of the Product of the wanted ProductExtraBuyRelations
      * @return [] of ProductExtraBuyRelation
      */ 
-    public function getProductExtraBuyRelations($productId){
+    public function getProductExtraBuyRelations($productId): array
+    {
         $relations = $this->callApi("Product_GetExtraBuyRelations", ["ProductId" => $productId]);
         $return = [];
         foreach($relations as $relation){
@@ -2122,7 +2141,8 @@ class Client{
      * @param int The id of the Product of the wanted ProductFiles
      * @return [] of ProductFile
      */ 
-    public function getProductFiles($productId){
+    public function getProductFiles($productId): array
+    {
         $files = $this->callApi("Product_GetFiles", ["ProductId" => $productId]);
         $return = [];
         foreach($files as $file){
@@ -2137,7 +2157,8 @@ class Client{
      * @param int The id of the Product of the wanted ProductPictures
      * @return [] of ProductPicture
      */ 
-    public function getProductPictures($productId){
+    public function getProductPictures($productId): array
+    {
         $pictures = $this->callApi("Product_GetPictures", ["ProductId" => $productId]);
         $return = [];
         foreach($pictures as $picture){
@@ -2152,7 +2173,8 @@ class Client{
      * @param int $productId The id of the Product of the wanted Categories
      * @return [] of Category
      */ 
-    public function getProductSecondaryCategories($productId){
+    public function getProductSecondaryCategories($productId): array
+    {
         $categories = $this->callApi("Product_GetSecondaryCategories", ["ProductId" => $productId]);
         $return = [];
         foreach($categories as $category){
@@ -2167,7 +2189,8 @@ class Client{
      * @param int $productId The id of the Product of the wanted ProductTag
      * @return [] of ProductTag
      */ 
-    public function getProductTags($productId){
+    public function getProductTags($productId): array
+    {
         $tags = $this->callApi("Product_GetTags", ["ProductId" => $productId]);
         $return = [];
         foreach($tags as $tag){
@@ -2179,10 +2202,10 @@ class Client{
     /**
      * Returns all ProductUnits
      * 
-     * @param int $productId The id of the Product of the wanted ProductTag
      * @return [] of ProductUnit
      */ 
-    public function getProductUnits($productId){
+    public function getProductUnits(): array
+    {
         $units = $this->callApi("Product_GetUnitAll");
         $return = [];
         foreach($units as $unit){
@@ -2219,14 +2242,20 @@ class Client{
      * @param int $product_id
      * @return [] of ProductVariant Object
      */
-    public function getProductVariants(int $product_id){
-        return $this->callApi('Product_GetVariants', ['ProductId' => $product_id]);
+    public function getProductVariants(int $product_id): array
+    {
+        $variants = $this->callApi('Product_GetVariants', ['ProductId' => $product_id]);
+        $return = [];
+        foreach($variants as $variant){
+            $return[] = new ProductVariant($variant);
+        }
+        return $return;
     }
 
     /**
      * Retrieves a product variant by it's ItemNumber
      *
-        * @param int $item_number ItemNumber of the product variant to retrieve.
+     * @param int $item_number ItemNumber of the product variant to retrieve.
      * @return object|false The product variant, if found. False if there's no product variant with that ItemNumber.
      */
     public function getProductVariantByItemNumber($item_number){
@@ -2243,7 +2272,8 @@ class Client{
      * @param int $productId Id of the product to retrieve.
      * @return [] of ProductVariant Objects
      */
-    public function getProductVariantSorted($productId){
+    public function getProductVariantSorted($productId): array
+    {
         $variants = $this->callApi('Product_GetVariantsSorted',array('ProductId' =>$productId));
         $return = [];
         foreach($variants as $variant){
@@ -2268,7 +2298,8 @@ class Client{
      *
      * @return [] of ProductVariantType Objects
      */
-    public function getAllProductVariantTypes(){
+    public function getAllProductVariantTypes(): array
+    {
         $variantTypes = $this->callApi('Product_GetVariantTypeAll');
         $return = [];
         foreach($variantTypes as $variant){
@@ -2294,7 +2325,8 @@ class Client{
      * @param int $variantId The id of the ProductVariant of the wanted ProductVariantTypeValues
      * @return [] of ProductVariantTypeValue Objects
      */
-    public function getAllProductVariantTypeValues($variantId){
+    public function getAllProductVariantTypeValues($variantId): array
+    {
         $variants = $this->callApi('Product_GetVariantTypeValues',array('VariantId' =>$variantId));
         $return = [];
         foreach($variants as $variant){
@@ -2309,7 +2341,8 @@ class Client{
      * @param int $variantTypeId The id of the ProductVariantType
      * @return [] of ProductVariantTypeValue Objects
      */
-    public function getAllProductVariantTypeValuesByType($variantTypeId){
+    public function getAllProductVariantTypeValuesByType($variantTypeId): array
+    {
         $variants = $this->callApi('Product_GetVariantTypeValuesByType',array('VariantTypeId' =>$variantTypeId));
         $return = [];
         foreach($variants as $variant){
@@ -2525,10 +2558,10 @@ class Client{
     /**
      * Returns all SEORedirects
      *
-     * @param ProductUnit
      * @return [] of SEORedirect Objects
      */
-    public function getAllSeoRedirects(){
+    public function getAllSeoRedirects(): array
+    {
         $seoRedirects = $this->callApi('SEORedirect_GetAll');
         $return = [];
         foreach($seoRedirects as $seo){
