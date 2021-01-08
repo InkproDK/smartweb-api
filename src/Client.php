@@ -164,8 +164,8 @@ class Client{
     /**
      * Updates a new Category
      * 
-     * @param object $categoryPicture, The input in CategoryPictureCreate object format
-     * @return int Id of the newly created CategoryPicture
+     * @param Category
+     * @return int Id of the newly updated Category
      */
     public function updateCategory($category): int
     {
