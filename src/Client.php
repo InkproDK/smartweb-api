@@ -62,9 +62,6 @@ class Client{
         return $response->$responseName->item ?? $response->$responseName;
     }
 
-    
-    
-
     /**
      * Creates category.
      * 
@@ -153,9 +150,9 @@ class Client{
      * @param int $category_id Id of the category of the wanted CategoryPictures
      * @return Category CategoryPicture[] Array with the CategoryPicture.
      */
-    public function getCategoryPictures(): array
+    public function getCategoryPictures($category_id): array
     {
-        $pictures = $this->callApi("Category_GetPictures");
+        $pictures = $this->callApi("Category_GetPictures", ["CategoryId" => $category_id]);
         $return = [];
         foreach($pictures as $picture){
             $return[] = new CategoryPicture($picture);
