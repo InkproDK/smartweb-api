@@ -1,7 +1,8 @@
 <?php
 namespace inkpro\smartwebapi;
 
-class OrderLineAddress{
+
+class OrderCustomer{
     public $Address;
     public $Amount;
     public $City;
