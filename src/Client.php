@@ -766,7 +766,7 @@ class Client{
      * @return object The order object.
      */
     public function getOrderByNumber($start, $end){
-        $orders = $this->callApi('Order_GetByNumber',array('Start' =>$start, "End" => $end));
+        $order = $this->callApi('Order_GetByNumber',array('Start' =>$start, "End" => $end));
         return new Order($order);
     }
 
@@ -914,7 +914,7 @@ class Client{
      */
     public function getOrderPayment($id){
         $payment = $this->callApi('Order_GetPayment', ["PaymentId" => $id]);
-        return new OrderPayment($packing);
+        return new OrderPayment($payment);
     }
 
     /**
@@ -2113,7 +2113,7 @@ class Client{
      * @param int The id of the wanted ExtraBuyCategory
      * @return ProductExtraBuyCategory
      */ 
-    public function getProductExtraBuyCategory($extraBuyCategoryId): array
+    public function getProductExtraBuyCategory($extraBuyCategoryId): ProductExtraBuyCategory
     {
         $category = $this->callApi("Product_GetExtraBuyCategory", ["ExtraBuyCategoryId" => $extraBuyCategoryId]);
         return new ProductExtraBuyCategory($category);

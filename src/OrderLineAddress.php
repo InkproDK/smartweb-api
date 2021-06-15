@@ -1,12 +1,20 @@
 <?php
 namespace inkpro\smartwebapi;
 
-class UserGroup{
+class OrderLineAddress{
+	public $Address;
+	public $Amount;
+	public $City;
+	public $Comment;
+	public $Company;
+	public $CountryIso;
+	public $DeliveryDate;
+	public $DeliveryTime;
+	public $Firstname;
 	public $Id;
-	public $LanguageISO;
-	public $Sorting;
-	public $Title;
-	public $Type;
+	public $Lastname;
+	public $LineId;
+	public $Zip;
     
     function __construct($data){
         $data = (array)$data;

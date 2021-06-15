@@ -11,7 +11,7 @@ class ClientTest extends SmartwebTestCase
     public function testCanGetAllCurrencies()
     {
         $currencies = self::$client->getAllCurrencies();
-        $this->assertIsObject($currencies, "currencies are not an object");
+        $this->assertIsArray($currencies, "currencies are not an object");
     }
 
     public function testCanGetCurrencyByISO()
