@@ -1738,10 +1738,14 @@ class Client{
     {
         $return = [];
         $products = $this->callApi('Product_GetByBrand', ["BrandId" => $brandId]);
-        foreach($products as $product){
-            $return[] = new Product($product);
+        if(is_array($products)){
+            foreach ($products as $product) {
+                $result[] = new Product($product);
+            }
+        }elseif(is_object($products)){
+            $result[] = new Product($products);
         }
-        return $return;
+        return $result;
     }
 
 
@@ -1755,10 +1759,15 @@ class Client{
     {
         $products = $this->callApi('Product_getbycategory', ['CategoryId' =>$category_id]);
         $result = [];
-        foreach ($products as $product) {
-            $result[] = new Product($product);
+        if(is_array($products)){
+            foreach ($products as $product) {
+                $result[] = new Product($product);
+            }
+        }elseif(is_object($products)){
+            $result[] = new Product($products);
         }
         return $result;
+
     }
 
     /**
@@ -1771,10 +1780,15 @@ class Client{
     {
         $products = $this->callApi('Product_GetByCategoryAndSecondary', ['CategoryId' =>$category_id]);
         $result = [];
-        foreach ($products as $product) {
-            $result[] = new Product($product);
+        if(is_array($products)){
+            foreach ($products as $product) {
+                $result[] = new Product($product);
+            }
+        }elseif(is_object($products)){
+            $result[] = new Product($products);
         }
         return $result;
+
     }
 
     /**
