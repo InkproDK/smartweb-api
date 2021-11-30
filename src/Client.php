@@ -1742,7 +1742,7 @@ class Client{
             foreach ($products as $product) {
                 $result[] = new Product($product);
             }
-        }elseif(is_object($products)){
+        }elseif(is_object($products) && isset($products->Id)){
             $result[] = new Product($products);
         }
         return $result;
@@ -1763,7 +1763,7 @@ class Client{
             foreach ($products as $product) {
                 $result[] = new Product($product);
             }
-        }elseif(is_object($products)){
+        }elseif(is_object($products) && isset($products->Id)){
             $result[] = new Product($products);
         }
         return $result;
@@ -1784,7 +1784,7 @@ class Client{
             foreach ($products as $product) {
                 $result[] = new Product($product);
             }
-        }elseif(is_object($products)){
+        }elseif(is_object($products) && isset($products->Id)){
             $result[] = new Product($products);
         }
         return $result;
