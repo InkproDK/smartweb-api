@@ -2703,6 +2703,7 @@ class Client{
     public function getUsersByDate($start, $end)
     {
         $users = $this->callApi('User_GetAllByDate', ["Start" => $start, "End" => $end]);
+        if(is_object($users) && count((array)$users)) return [new User($users)];
         $return = [];
         foreach($users as $user){
             $return[] = new User($user);
@@ -2738,11 +2739,17 @@ class Client{
         if(!$end) {
             $end = new DateTime;
         }
-        $response = $this->callApi('User_GetAllNewsletterByDate', ['Start' =>$start->format('Y-m-d'), 'End' =>$end->format('Y-m-d')]);
-        foreach ($response as $user) {
-            $this->allNewsletterUsers[$user->Id] = new User($user);
+        $response = $this->callApi('User_GetAllNewsletterByDate', ['Start' =>$start->format('Y-m-d H:i:s'), 'End' =>$end->format('Y-m-d H:i:s')]);
+        if(isset($response->Id)){
+            $response = [$response];
         }
-        return $this->allNewsletterUsers;
+        if(is_array($response)){
+            foreach ($response as $user) {
+                $this->allNewsletterUsers[$user->Id] = new User($user);
+            }
+            return $this->allNewsletterUsers;
+        }
+        return [];
     }
 
     /**
@@ -2773,7 +2780,8 @@ class Client{
      * @return object The fetched user object.
      */
     public function getUserByName ($name){
-        return $this->callApi('User_GetByName',array('UserName' =>$name));
+        $user = $this->callApi('User_GetByName',array('UserName' =>$name));
+        return new User($user);
     }
 
     /**
@@ -2886,4 +2894,3 @@ class Client{
 
     
 }
-
